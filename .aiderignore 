@@ -1,0 +1,23 @@
+# Development References
+refs/
+
+# Environment and secrets
+.env
+.env.*
+credentials
+
+# Python
+## Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+## Virtual environments
+venv/
+.venv/
+
+## Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
