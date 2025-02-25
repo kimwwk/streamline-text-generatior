@@ -15,16 +15,9 @@ class SimpleLangGraphApp:
         self.runnable = create_product_workflow(llm)
 
     def query(self, message: str):
-        """Query the application.
-
-        Args:
-            message: The user message.
-
-        Returns:
-            str: The LLM response.
-        """
+        """Query the application."""
         if not self.runnable:
             raise RuntimeError("App not set up. Call set_up() first.")
             
-        chat_history = self.runnable.invoke(HumanMessage(message))
-        return chat_history[-1].content 
+        response = self.runnable.invoke(HumanMessage(message))
+        return response[-1].content
