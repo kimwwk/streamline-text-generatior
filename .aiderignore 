@@ -21,3 +21,10 @@ dist/
 build/
 *.egg-info/
 *.egg
+
+# LangGraph
+.langgraph/
+.langgraph_api/
+.langgraph_cache/
+langgraph_runs/
+langgraph_logs/

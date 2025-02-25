@@ -1,7 +1,8 @@
 google-cloud-aiplatform[langchain,reasoningengine]
 cloudpickle==3.0.0
 pydantic==2.7.4
-langgraph
+langgraph-cli[inmem]
+langgraph>=0.0.17
 httpx
 python-dotenv
 setuptools
@@ -11,3 +12,4 @@ pytest-cov>=4.0.0
 typing-extensions>=4.0.0
 networkx>=3.0
 graphviz>=0.20.0
+vertexai>=0.0.1
