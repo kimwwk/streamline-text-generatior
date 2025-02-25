@@ -1,6 +1,6 @@
 import vertexai
 from config.settings import PROJECT_ID, LOCATION, STAGING_BUCKET, credentials
-from graph.app import SimpleLangGraphApp
+from core.workflows.app import SimpleLangGraphApp
 
 def main():
     # Initialize Vertex AI
