@@ -1,5 +1,5 @@
 from langchain_google_vertexai import ChatVertexAI
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 
 class LLMFactory:
     """Factory for creating LLM instances."""
@@ -13,5 +13,5 @@ class LLMFactory:
             
         if provider == "vertexai":
             return ChatVertexAI(model=kwargs.get("model", "gemini-1.5-pro"))
-        elif provider == "openai":
-            return ChatOpenAI(model=kwargs.get("model", "gpt-4"))
+        # elif provider == "openai":
+        #     return ChatOpenAI(model=kwargs.get("model", "gpt-4"))
