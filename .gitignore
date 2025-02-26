@@ -3,10 +3,12 @@ refs/
 
 # Development Tools
 .aider*
+!.aider.conf.yml
 
 # Environment and secrets
 .env
 .env.*
+!.env.template
 credentials
 
 # Python
