@@ -19,6 +19,9 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -e .
+
+# Install langgraph development tools (optional)
+pip install "langgraph[dev]"
 ```
 
 ## ⚙️ Configuration
@@ -60,7 +63,8 @@ src/
 ├── providers/           # LLM integrations
 │   └── llm_factory.py   # Provider switching
 ├── config/              # Environment setup
-└── main.py              # Entry point
+├── main.py              # Main entry point for CLI execution
+└── agent.py             # Entry point for langgraph dev server
 ```
 
 ## 🔄 Workflow Flow
@@ -84,8 +88,11 @@ Key processing stages:
 
 ## 🛠 Development
 ```bash
-# Run main application
+# Run main application (CLI mode)
 python -m src.main
+
+# Run interactive development server
+langgraph dev src.agent:graph
 
 # Execute tests
 pytest tests/ -v
@@ -94,6 +101,18 @@ pytest tests/ -v
 coverage run -m pytest tests/
 coverage report
 ```
+
+### Entry Points
+The project has two main entry points:
+
+1. **src/main.py**: Command-line interface for running predefined test queries
+   - Use this for quick testing and batch processing
+   - Run with `python -m src.main`
+
+2. **src/agent.py**: Exposes the workflow graph for the LangGraph development server
+   - Use this for interactive debugging and visualization
+   - Run with `langgraph dev src.agent:graph`
+   - Access the web interface at http://localhost:3000
 
 ## 📜 License
 Apache 2.0 - See [LICENSE](LICENSE) for details
