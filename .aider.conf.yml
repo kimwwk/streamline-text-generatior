@@ -362,7 +362,6 @@ check-update: true
 
 # specify a file to edit (can be used multiple times)
 file:
- - src/core/workflows/gemini_workflow.py
 
 # specify a read-only file (can be used multiple times)
 read:

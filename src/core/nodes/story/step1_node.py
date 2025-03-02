@@ -1,8 +1,7 @@
 from langchain_core.runnables import RunnablePassthrough
 from src.providers.llm_factory import LLMFactory
 from src.core.nodes.prompts.step1_prompts import step1_prompt
-
-
+import json
     
 def create_step1_node(story_text,llm_provider="vertexai", model="gemini-2.0-pro-exp-02-05"):
     """Create first analysis node with Gemini Pro configuration."""
@@ -41,10 +40,26 @@ def create_step1_node(story_text,llm_provider="vertexai", model="gemini-2.0-pro-
     def node_with_state_handling(state):
         result = base_chain.invoke(story_text)
         # Extract the content from the AI message
-        content = result.content
+        ai_message_content = result.content
 
-        return {"step1_result": content, 
-                "metadata": result,
+        # Parse the JSON content and verify it matches the schema
+        ai_message_content_json = json.loads(ai_message_content)
+        
+        # Verify required fields are present
+        required_fields = ["story_title", "art_style", "era_and_region", "characters", "negative_prompts"]
+        for field in required_fields:
+            if field not in ai_message_content_json:
+                raise ValueError(f"Required field '{field}' missing from LLM response")
+        
+        # Update the state with the parsed JSON result
+        conversation_entry = {
+            "step": "step1",
+            "input": story_text,
+            "output": ai_message_content,
+            "raw_output": result,
+        }
+        return {"unified_story_prompts": ai_message_content_json, 
+                "conversation_history": conversation_entry,  
                 **state}
     
     return node_with_state_handling

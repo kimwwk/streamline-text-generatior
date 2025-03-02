@@ -1,54 +1,8 @@
 from langchain_core.runnables import RunnablePassthrough
 from src.providers.llm_factory import LLMFactory
 from src.core.nodes.prompts.step2_prompts import step2_prompt
-import json
 
-# example step1_result
-# {
-#   "art_style": "Soft watercolor textures with pastel tones, reminiscent of early Disney animation, with a touch of Studio Ghibli's whimsical charm. The color palette will include gentle blues, soft pinks, and warm yellows to create a dreamy and inviting atmosphere.",
-#   "characters": [
-#     {
-#       "description": "A young woman with long, golden-blonde hair, blue eyes, and fair skin, wearing a simple, elegant medieval-style gown in light blue with delicate white trim.",
-#       "name": "Princess",
-#       "role": "Default"
-#     },
-#     {
-#       "description": "A young woman with long, golden-blonde hair, blue eyes and fair skin, wearing dirty and tattered servant's clothes made of rough brown fabric.",
-#       "name": "Princess",
-#       "role": "Kitchen Maid"
-#     },
-#      {
-#       "description": "A young woman with long, golden-blonde hair, blue eyes, and fair skin, wearing the most splendid clothing, include luxury dress and jewelry.",
-#       "name": "Princess",
-#       "role": "Married"
-#     },
-#     {
-#       "description": "A tall, slender man with a crooked chin, brown hair, and brown eyes, wearing regal attire consisting of a rich, dark red tunic and a golden crown.",
-#       "name": "King Thrushbeard",
-#       "role": "Default"
-#     },
-#     {
-#       "description": "A slender man with a crooked chin, brown hair, and brown eyes, dressed in dirty, ragged clothes of a traveling musician, carrying a fiddle.",
-#       "name": "King Thrushbeard",
-#       "role": "Fiddler"
-#     },
-#       {
-#       "description": "A slender man with a crooked chin, brown hair, and brown eyes, wearing velvet and silk, with gold chains about his neck.",
-#       "name": "King Thrushbeard",
-#       "role": "King's son"
-#     },
-#     {
-#       "description": "An older man with graying hair, kind eyes, and a stern but gentle expression, wearing royal attire with a golden crown.",
-#       "name": "Old King",
-#       "role": "Default"
-#     }
-#   ],
-#   "era_and_region": "Medieval period with European-inspired settings, featuring castles, forests, meadows, and a small village.",
-#   "negative_prompts": "Text, naked, nude, logo, cropped, two heads, four arms, lazy eye, blurry, unfocused, worst quality, low quality",
-#   "story_title": "King Thrushbeard"
-# }
-
-def transform_step1_result(step1_result):
+def transform_json_to_text(step1_result):
     """Transform step1 result dictionary into readable text format."""
     text_parts = []
     
@@ -101,19 +55,21 @@ def create_step2_node(story_text, llm_provider="vertexai", model="gemini-2.0-pro
     
     # Wrap the chain to handle state updates
     def node_with_state_handling(state):
-        step1_result = state["step1_result"]
-
-        # Convert step1_result to JSON if it's not already
-        if not isinstance(state["step1_result"], dict):
-            step1_result = json.loads(step1_result)
-        
-        # print("step1_result value:", state["step1_result"])
-        story_unified_text = transform_step1_result(step1_result)
+        story_unified_text = transform_json_to_text(state["unified_story_prompts"])
         
         result = base_chain.invoke({"story_text": story_text, "story_unified_text": story_unified_text})
         # Extract the content from the AI message
-        result = result.content
-        
-        return {"step2_result": result, **state}
+        ai_message_content = result.content
+
+        conversation_entry = {
+            "step": "step2",
+            "input": story_text,
+            "output": ai_message_content,
+            "raw_output": result,
+        }
+
+        return {"step2_result": result, 
+                "conversation_history": conversation_entry,
+                **state}
     
     return node_with_state_handling

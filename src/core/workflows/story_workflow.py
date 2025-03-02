@@ -1,4 +1,4 @@
-from typing import Annotated, Dict, Any
+from typing import Annotated, Dict, Any, List
 from typing_extensions import TypedDict
 import operator
 import os
@@ -14,6 +14,7 @@ class StoryState(TypedDict):
     step1_result: Dict[str, Any] | None  # Result from step1 
     step2_result: Dict[str, Any] | None  # Result from step2
     metadata: Annotated[Dict[str, Any], operator.or_] | None  # Optional metadata that can be merged
+    conversation_history: Annotated[List[Dict[str, Any]], operator.add] | None  # Full conversation history
 
 # Function to load default content from file
 def load_default_content(file_path="src/entities/default_story.txt"):
