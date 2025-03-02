@@ -58,8 +58,7 @@ def create_step1_node(story_text,llm_provider="vertexai", model="gemini-2.0-pro-
             "output": ai_message_content,
             "raw_output": result,
         }
-        return {"unified_story_prompts": ai_message_content_json, 
-                "conversation_history": conversation_entry,  
-                **state}
+        return {"story_unified_prompts": ai_message_content_json, 
+                "conversation_history": [conversation_entry]}
     
     return node_with_state_handling

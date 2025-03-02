@@ -11,8 +11,8 @@ from src.core.nodes.story.step2_node import create_step2_node
 class StoryState(TypedDict):
     """State definition for the Story workflow."""
     input: str | None  # Generic input field that can be empty
-    step1_result: Dict[str, Any] | None  # Result from step1 
-    step2_result: Dict[str, Any] | None  # Result from step2
+    output: str | None  # Generic input field that can be empty
+    story_unified_prompts: Dict[str, Any] | None 
     metadata: Annotated[Dict[str, Any], operator.or_] | None  # Optional metadata that can be merged
     conversation_history: Annotated[List[Dict[str, Any]], operator.add] | None  # Full conversation history
 
