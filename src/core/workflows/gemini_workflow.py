@@ -1,9 +1,18 @@
+from typing import Annotated, Dict, Any
+from typing_extensions import TypedDict
+import operator
+
 from langgraph.graph import StateGraph, END
 from src.core.nodes.analysis_nodes import create_analysis_nodes
 from src.core.nodes.output import format_response
 
+class GeminiState(TypedDict):
+    """State definition for the Gemini workflow."""
+    content: str  # Input content
+    metadata: Annotated[Dict[str, Any], operator.or_]  # Optional metadata that can be merged
+
 def create_gemini_workflow():
-    workflow = StateGraph(dict)
+    workflow = StateGraph(GeminiState)
     
     # Create nodes with default configuration
     step1, step2 = create_analysis_nodes()
@@ -15,4 +24,4 @@ def create_gemini_workflow():
     workflow.add_edge("step1", "step2")
     workflow.add_edge("step2", END)
     
-    return workflow, format_response
+    return workflow.compile()
