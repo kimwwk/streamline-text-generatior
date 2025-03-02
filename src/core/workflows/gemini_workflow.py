@@ -11,7 +11,8 @@ def format_response(state):
     }
 
 def create_gemini_workflow():
-    llm = LLMFactory.create("vertexai", model="gemini-2.0-pro-exp-02-05")
+    llm_provider = "vertexai"
+    llm = LLMFactory.create(llm_provider, model="gemini-2.0-pro-exp-02-05")
     
     def step1_node(state):
         result = (step1_prompt | llm).invoke({"input": state.content})

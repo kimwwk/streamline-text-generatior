@@ -11,8 +11,5 @@ vertexai.init(
     credentials=credentials
 )
 
-llm_provider = "vertexai"
-llm = LLMFactory.create(llm_provider, model="gemini-2.0-pro-exp-02-05")
-
 # Create Gemini-specific workflow
 graph, format_response = create_gemini_workflow()
