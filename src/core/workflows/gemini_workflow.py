@@ -1,8 +1,8 @@
 from langgraph.graph import StateGraph, END
 from langchain_core.messages import HumanMessage
 from src.providers.llm_factory import LLMFactory
-from src.nodes.prompts.step1_prompts import step1_prompt
-from src.nodes.prompts.step2_prompts import step2_prompt
+from src.core.nodes.prompts.step1_prompts import step1_prompt
+from src.core.nodes.prompts.step2_prompts import step2_prompt
 
 def format_response(state):
     return {
