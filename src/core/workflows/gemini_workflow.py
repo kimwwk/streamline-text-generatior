@@ -1,30 +1,16 @@
 from langgraph.graph import StateGraph, END
-from langchain_core.messages import HumanMessage
-from src.providers.llm_factory import LLMFactory
-from src.core.nodes.prompts.step1_prompts import step1_prompt
-from src.core.nodes.prompts.step2_prompts import step2_prompt
-
-def format_response(state):
-    return {
-        "step1_analysis": state.get("step1_result"),
-        "final_analysis": state.get("step2_result")
-    }
+from src.core.nodes.analysis_nodes import create_analysis_nodes
+from src.core.nodes.output import format_response
 
 def create_gemini_workflow():
-    llm_provider = "vertexai"
-    llm = LLMFactory.create(llm_provider, model="gemini-2.0-pro-exp-02-05")
-    
-    def step1_node(state):
-        result = (step1_prompt | llm).invoke({"input": state.content})
-        return {"step1_result": result.content}
-        
-    def step2_node(state):
-        result = (step2_prompt | llm).invoke({"input": state["step1_result"]})
-        return {"step2_result": result.content}
-
     workflow = StateGraph(dict)
-    workflow.add_node("step1", step1_node)
-    workflow.add_node("step2", step2_node)
+    
+    # Create nodes with default configuration
+    step1, step2 = create_analysis_nodes()
+    
+    # Build workflow graph
+    workflow.add_node("step1", step1)
+    workflow.add_node("step2", step2)
     workflow.set_entry_point("step1")
     workflow.add_edge("step1", "step2")
     workflow.add_edge("step2", END)
