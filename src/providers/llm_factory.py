@@ -12,6 +12,14 @@ class LLMFactory:
             raise ValueError(f"Unknown provider: {provider}")
             
         if provider == "vertexai":
-            return ChatVertexAI(model=kwargs.get("model", "gemini-1.5-pro"))
+            # Extract Vertex AI specific parameters
+            response_mime_type = kwargs.pop("response_mime_type", "text/plain")
+            response_schema = kwargs.pop("response_schema", None)
+            
+            return ChatVertexAI(
+                model=kwargs.get("model", "gemini-1.5-pro"),
+                response_mime_type=response_mime_type,
+                response_schema=response_schema
+            )
         # elif provider == "openai":
         #     return ChatOpenAI(model=kwargs.get("model", "gpt-4"))

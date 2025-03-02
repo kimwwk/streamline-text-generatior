@@ -9,6 +9,8 @@ from src.core.nodes.output import format_response
 class GeminiState(TypedDict):
     """State definition for the Gemini workflow."""
     content: str  # Input content
+    step1_result: Dict[str, Any]  # Result from step1
+    step2_result: Dict[str, Any]  # Result from step2
     metadata: Annotated[Dict[str, Any], operator.or_]  # Optional metadata that can be merged
 
 def create_gemini_workflow():
