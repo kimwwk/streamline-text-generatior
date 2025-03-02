@@ -342,11 +342,29 @@ check-update: true
 
 # specify a file to edit (can be used multiple times)
 file:
- - src/main.py
+ - src/providers/llm_factory.py
+#  - src/config/settings.py
+#  - src/core/workflows/app.py
+#  - src/core/workflows/product_workflow.py
+#  - src/core/nodes/routing.py
+#  - src/core/nodes/output.py
+#  - src/core/nodes/tools/product_tools.py
+#  - src/main.py
+ - src/agent.py
+
 
 # specify a read-only file (can be used multiple times)
 read:
  - README.md
+#  - src/providers/llm_factory.py
+ - src/config/settings.py
+ - src/core/workflows/app.py
+ - src/core/workflows/product_workflow.py
+ - src/core/nodes/routing.py
+ - src/core/nodes/output.py
+ - src/core/nodes/tools/product_tools.py
+#  - src/main.py
+#  - src/agent.py
 
 ## Use VI editing mode in the terminal (default: False)
 #vim: false
