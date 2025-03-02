@@ -340,22 +340,33 @@ check-update: true
 #################
 # Other settings:
 
-# specify a file to edit (can be used multiple times)
-file:
-
-# specify a read-only file (can be used multiple times)
-read:
- - README.md
- - src/providers/llm_factory.py
- - src/config/settings.py
+## All files summary
+#  - README.md
+#  - CONVENTIONS.md
+### Config files
+#  - src/providers/llm_factory.py
+#  - src/config/settings.py
+### Core files
+#### Product workflow
 #  - src/core/workflows/product_workflow.py
 #  - src/core/nodes/routing.py
 #  - src/core/nodes/output.py
 #  - src/core/nodes/tools/product_tools.py
+#### Gemini workflow
+#  - src/core/workflows/gemini_workflow.py
+#  - src/core/nodes/analysis_nodes.py
+### Entry Points
+#  - src/main.py
+#  - src/agent.py
+
+# specify a file to edit (can be used multiple times)
+file:
  - src/core/workflows/gemini_workflow.py
  - src/core/nodes/analysis_nodes.py
- - src/main.py
- - src/agent.py
+
+# specify a read-only file (can be used multiple times)
+read:
+ - README.md
 
 ## Use VI editing mode in the terminal (default: False)
 #vim: false
