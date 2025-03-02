@@ -354,7 +354,8 @@ check-update: true
 #  - src/core/nodes/tools/product_tools.py
 #### Gemini workflow
 #  - src/core/workflows/gemini_workflow.py
-#  - src/core/nodes/analysis_nodes.py
+#  - src/core/nodes/analysis/step1_node.py
+#  - src/core/nodes/analysis/step2_node.py
 ### Entry Points
 #  - src/main.py
 #  - src/agent.py
@@ -362,7 +363,6 @@ check-update: true
 # specify a file to edit (can be used multiple times)
 file:
  - src/core/workflows/gemini_workflow.py
- - src/core/nodes/analysis_nodes.py
 
 # specify a read-only file (can be used multiple times)
 read:

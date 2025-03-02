@@ -1,5 +1,5 @@
 from core.workflows.product_workflow import create_product_workflow
-from core.workflows.gemini_workflow import create_gemini_workflow, GeminiState
+from src.core.workflows.story_workflow import create_story_workflow, StoryState
 from providers.llm_factory import LLMFactory
 from config.settings import PROJECT_ID, LOCATION, STAGING_BUCKET, credentials
 import vertexai
@@ -11,13 +11,13 @@ vertexai.init(
     credentials=credentials
 )
 
-# Create Gemini-specific workflow
-graph = create_gemini_workflow()
+# Create Story-specific workflow
+graph = create_story_workflow()
 
 # Example of how to use the graph with the typed state
-def process_with_gemini(input_text: str):
-    """Process input text using the Gemini workflow."""
-    # Initialize the state with proper typing based on GeminiState
+def process_with_story(input_text: str):
+    """Process input text using the Story workflow."""
+    # Initialize the state with proper typing based on StoryState
     initial_state = {"content": input_text, "metadata": {}}
     
     # Execute the workflow
@@ -29,5 +29,5 @@ def process_with_gemini(input_text: str):
 # Example usage
 if __name__ == "__main__":
     sample_input = "This is a sample text to analyze."
-    result = process_with_gemini(sample_input)
+    result = process_with_story(sample_input)
     print(f"Analysis result: {result}")
