@@ -364,7 +364,7 @@ check-update: true
 file:
 - src/core/workflows/story_workflow.py
 - src/core/nodes/story/consolidate.py
-- src/core/prompts/consolidate_prompts.py
+- src/core/nodes/prompts/consolidate_prompts.py
 
 # specify a read-only file (can be used multiple times)
 read:
