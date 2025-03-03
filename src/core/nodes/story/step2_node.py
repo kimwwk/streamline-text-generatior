@@ -99,7 +99,8 @@ def create_step2_node(story_text, llm_provider="vertexai", model="gemini-2.0-pro
             "scenes": ai_message_content_json
         }
 
-        return {"output": output, 
+        return {"output_v1": output, 
+                "scenes": ai_message_content_json,
                 "conversation_history": [conversation_entry]}
     
     return node_with_state_handling

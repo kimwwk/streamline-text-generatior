@@ -13,6 +13,7 @@ class StoryState(TypedDict):
     input: str | None  # Generic input field that can be empty
     output: str | None  # Generic input field that can be empty
     story_unified_prompts: Dict[str, Any] | None 
+    scenes: Dict[str, Any] | None 
     metadata: Annotated[Dict[str, Any], operator.or_] | None  # Optional metadata that can be merged
     conversation_history: Annotated[List[Dict[str, Any]], operator.add] | None  # Full conversation history
 
