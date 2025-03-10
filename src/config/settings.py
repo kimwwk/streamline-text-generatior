@@ -10,12 +10,13 @@ load_dotenv()
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Google Cloud settings
-PROJECT_ID = os.getenv("PROJECT_ID", "trim-mix-444914-m2")
-LOCATION = os.getenv("LOCATION", "northamerica-northeast2")
-STAGING_BUCKET = os.getenv("STAGING_BUCKET", "gs://vertex-ai-testing-bucket")
+PROJECT_ID = os.getenv("PROJECT_ID")
+LOCATION = os.getenv("LOCATION")
+STAGING_BUCKET = os.getenv("STAGING_BUCKET")
+KEY_FILE_NAME = os.getenv("KEY_FILE_NAME")
 
 # Path to service account key
-KEY_FILE_PATH = os.path.join(ROOT_DIR, "credentials", "trim-mix-444914-m2-777e33acbe7c.json")
+KEY_FILE_PATH = os.path.join(ROOT_DIR, "credentials", KEY_FILE_NAME)
 
 # Load and configure credentials
 credentials = service_account.Credentials.from_service_account_file(
