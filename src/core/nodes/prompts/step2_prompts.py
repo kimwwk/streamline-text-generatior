@@ -2,7 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 SYSTEM_STEP2 = """**Task**: Generate a complete 20-scene storyboard for a children's story using the provided definitions and story elements. Each scene will be directly used for image generation, so follow the format precisely.
 
-## Story Reference and Visual Style Guide
+## Unified Visual Style
 
 {story_unified_text}
 
@@ -11,7 +11,15 @@ SYSTEM_STEP2 = """**Task**: Generate a complete 20-scene storyboard for a childr
 - Generate exactly 20 scenes that tell a complete story
 - Scenes should follow a clear narrative arc (introduction, rising action, climax, resolution)
 - Each scene should be visually distinct while maintaining style consistency
+- Each scene is a still image
+- Each scene can only include one character. Do not even mention a second character in the scene.
 - Ensure all scenes together tell a cohesive story with proper progression
+- When mentioning as **Self-contained Descriptions**, it: 
+   - MUST work as standalone prompts for image generation
+   - NEVER use phrases like "Same" or "Similar to previous scene" 
+   - NEVER use the name of the character like "Princess Amelia", "King's Daughter", etc.
+   - NEVER include anything that cannot be visually represented like "thoughts", "feelings", "saying something", etc.
+   - NEVER include anything tha is ambiguous, vague, or unclear
 
 ## Camera Angles Reference
 - Medium shots: Standard for character introductions and dialogue
@@ -38,51 +46,26 @@ A Royal Awakening
 </example>
 
 ### Scene Description
-A single, concise sentence describing the key action or moment in the scene.
+**Self-contained Descriptions**: A single, concise sentence describing the key action or moment in the scene.
 
 <example>The princess discovers a magical map hidden inside her favorite book.</example>
 
 ### Camera / Vantage
-A clear instruction for camera positioning and focus (use reference angles).
+**Self-contained Descriptions**: A clear instruction for camera positioning and focus (use reference angles).
 
 <example>Medium shot focusing on the princess and the open book in her hands.</example>
 
 ### Character (If any)
-Details about the primary character in this scene - include ONLY ONE character:
-- Name: <example>Princess Amelia</example>
-- Variation: <example>Default</example>
-- Action: <example>Her eyes wide with wonder, gently touching the glowing map with her fingertips, leaning forward with curiosity.</example>
+Details about the primary character in this scene:
+
+- Name: match the name in the character from Unified Visual Style <example>Princess Amelia</example>
+- Variation: match the variation in the character from Unified Visual Style <example>Default</example>
+- Action: **Self-contained Descriptions** <example>Her eyes wide with wonder, gently touching the glowing map with her fingertips, leaning forward with curiosity.</example>
 
 ### Environment / Background Settings
-A vivid but concise description of the setting, atmosphere, and key background elements.
+**Self-contained Descriptions**: A vivid but concise description of the setting, atmosphere, and key background elements.
 
 <example>A cozy tower room bathed in golden afternoon light, bookshelves lining the walls, dust particles dancing in sunbeams, with a large arched window revealing a distant mountain range.</example>
-
-## Technical Requirements
-
-1. **Visual Consistency**: Maintain consistent visual elements across all scenes:
-   - Character appearances should remain consistent (unless a transformation is part of the story)
-   - Color palettes should align with the defined art style
-   - Lighting and atmosphere should change logically with the story progression
-
-2. **Image Generation Optimization**:
-   - Avoid mentioning character thoughts or anything invisible
-   - Keep descriptions visual and concrete (what can be seen, not implied)
-   - Ensure character actions are physically representable
-   - Use descriptive adjectives for visual elements (colors, textures, lighting)
-
-## Important Notes
-
-1. **Self-contained Descriptions**: 
-   - NEVER use phrases like "Same as Scene X" or "Similar to previous scene" 
-   - NEVER use the name of the character
-   - Each scene must have its own simple but complete description
-   - All scenes must work as standalone prompts for image generation
-
-2. **Low Coherence Optimization**:
-   - Each scene must only have one primary character
-   - Include just enough detail for basic visualization
-   - Focus on cost-effective image generation with minimal complexity
 
 ## Output Format
 The output must be a valid JSON array with 20 objects, each containing scene_number, title, description, camera, character (with name, variation, action), and background fields.

@@ -37,8 +37,8 @@ Analyze the provided children's story text and generate unified visual prompts t
 - Example: "Soft watercolor illustrations with pastel tones inspired by Studio Ghibli, featuring gentle brush strokes and dreamy atmospheres."
 
 ### Era and Region
-- Briefly describe the time period and cultural/geographical setting in 1 sentences
-- Example: "Medieval European countryside."
+- Briefly describe the time period and cultural/geographical setting that can be applied to entire story
+- Example: "Medieval European setting."
 
 ### Characters
 - For each character, provide:
@@ -47,8 +47,7 @@ Analyze the provided children's story text and generate unified visual prompts t
   - variation: Either "Default" for the character's primary appearance or a descriptive variation name for different appearances
 - If a character has multiple variations, create separate entries with the same name but different variations
 - Focus on consistent visual traits that will identify the character across all scenes
-- INCLUDE basic physical attributes like hair color and skin tone for consistency
-- Keep descriptions brief, just enough for recognition across scenes
+- INCLUDE basic physical attributes like hair color, eye color, skin tone and clothing color for consistency
 - DO NOT include postures, facial expressions, or actions
 
 ### Negative Prompts
