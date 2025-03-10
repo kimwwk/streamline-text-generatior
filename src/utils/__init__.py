@@ -33,14 +33,23 @@ def transform_json_to_text(unified_story_prompts_json):
     for name, variations in characters_by_name.items():
         text_parts.append(f"- **{name}:**\n")
         for var in variations:
-            role = var['role']
+            variation = var['variation']
             desc = var['description']
-            if role == "Default":
+            if variation == "Default":
                 text_parts.append(f"  - Default Variation: \"{desc}\"\n")
             else:
-                text_parts.append(f"  - {role} Variation: \"{desc}\"\n")
+                text_parts.append(f"  - {variation} Variation: \"{desc}\"\n")
     
     # Add negative prompts
     # text_parts.append(f"\n**Negative Prompts:** \"{unified_story_prompts_json['negative_prompts']}\"")
     
     return "\n".join(text_parts)
+
+# Function to load default content from file
+def load_default_content(file_path="src/entities/default_story.txt"):
+    try:
+        with open(file_path, "r") as file:
+            return file.read()
+    except FileNotFoundError:
+        # Return empty string or a placeholder if file doesn't exist
+        return ""

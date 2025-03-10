@@ -7,7 +7,6 @@ import vertexai
 vertexai.init(
     project=PROJECT_ID,
     location=LOCATION,
-    staging_bucket=STAGING_BUCKET,
     credentials=credentials
 )
 
